@@ -1,4 +1,7 @@
-# result
+# ClanHR's Result Library
+
+[![Build Status](https://travis-ci.org/clanhr/result.svg)](https://travis-ci.org/clanhr/result)
+=======
 
 A Clojure library designed to ... well, that part is up to you.
 
