@@ -1,7 +1,6 @@
-# ClanHR's Result Library
+# ClanHR's Result Library [![Build Status](https://travis-ci.org/clanhr/result.svg)](https://travis-ci.org/clanhr/result)
 
 [![Clojars Project](http://clojars.org/clanhr/result/latest-version.svg)](http://clojars.org/clanhr/result)
-[![Build Status](https://travis-ci.org/clanhr/result.svg)](https://travis-ci.org/clanhr/result)
 
 A Clojure library designed to ... well, that part is up to you.
 
