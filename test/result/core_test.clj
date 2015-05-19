@@ -26,7 +26,7 @@
     (let [data {:dummy "dummy"}
           result (result/success data)]
       (is (result/succeeded? result))))
-  
+
   (testing "failed"
     (let [data {:dummy "dummy"}
           result (result/failure data)]
@@ -58,3 +58,9 @@
   (let [data {:dummy "dummy"}
         results [(result/failure data) (result/failure data)]]
     (is (result/collection-failed? results))))
+
+(deftest presence
+  (let [result-ok (result/presence {:hello "world"})
+        result-fail (result/presence nil)]
+    (is (result/succeeded? result-ok))
+    (is (result/failed? result-fail))))

@@ -41,3 +41,10 @@
   "Evaluates all the results on the collection"
   [coll]
   (not (collection-succeeded? coll)))
+
+(defn presence
+  "Returns success or failure based on the param being nil or not"
+  [obj]
+  (if obj
+    (success obj)
+    (failure)))
