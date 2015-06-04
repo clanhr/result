@@ -54,3 +54,9 @@
   [info]
   (-> (failure info)
       (assoc :timedout true)))
+
+(defn exception
+  "A result the represents an exception"
+  [ex]
+  (-> (failure "Exception")
+      (assoc :exception ex)))
