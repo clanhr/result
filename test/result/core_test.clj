@@ -59,8 +59,7 @@
         results [(result/failure data) (result/failure data)]]
     (is (result/collection-failed? results))))
 
-(deftest presence
-  (let [result-ok (result/presence {:hello "world"})
-        result-fail (result/presence nil)]
-    (is (result/succeeded? result-ok))
-    (is (result/failed? result-fail))))
+(deftest result-timedout
+  (let [data {:dummy "dummy"}
+        result (result/timedout "postgres")]
+    (is (result/failed? result))))

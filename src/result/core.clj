@@ -48,3 +48,9 @@
   (if obj
     (success obj)
     (failure)))
+
+(defn timedout
+  "A result the represents a timeout"
+  [info]
+  (-> (failure info)
+      (assoc :timedout true)))
