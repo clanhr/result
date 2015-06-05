@@ -42,13 +42,6 @@
   [coll]
   (not (collection-succeeded? coll)))
 
-(defn presence
-  "Returns success or failure based on the param being nil or not"
-  [obj]
-  (if obj
-    (success obj)
-    (failure)))
-
 (defn timedout
   "A result the represents a timeout"
   [info]
@@ -60,3 +53,12 @@
   [ex]
   (-> (failure "Exception")
       (assoc :exception ex)))
+
+(defn presence
+  "Returns success or failure based on the param being nil or not. Also
+  handles exceptions"
+  [obj]
+  (cond
+    (instance? Throwable obj) (exception obj)
+    obj (success obj)
+    :else (failure "Empty data")))
