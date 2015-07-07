@@ -63,3 +63,8 @@
   (let [data {:dummy "dummy"}
         result (result/timedout "postgres")]
     (is (result/failed? result))))
+
+(deftest result-unauthorised
+  (let [result (result/unauthorised)]
+    (is (result/unauthorised? result))
+    (is (result/failed? result))))

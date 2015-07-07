@@ -62,3 +62,15 @@
     (instance? Throwable obj) (exception obj)
     obj (success obj)
     :else (failure "Empty data")))
+
+(defn unauthorised
+  "A result the represents an unauthorised operation"
+  []
+  (-> (failure "Unauthorised")
+      (assoc :unauthorised true)))
+
+(defn unauthorised?
+  "Checks if the given result is unauthorised"
+  [result]
+  (boolean (:unauthorised result)))
+
