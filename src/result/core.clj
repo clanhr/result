@@ -1,5 +1,6 @@
 (ns result.core
-  "Utilities for defining operation results")
+  "Utilities for defining operation results"
+  (:refer-clojure :exclude [if-let]))
 
 (defn success
   "Creates a successful result"
@@ -74,3 +75,14 @@
   [result]
   (boolean (:unauthorised result)))
 
+(defmacro if-let
+  "Mimics if-let but checks if a result succeeded"
+  ([bindings then]
+   `(if-let ~bindings ~then nil))
+  ([bindings then else]
+   (let [form (bindings 0) tst (bindings 1)]
+     `(let [temp# ~tst]
+        (if (succeeded? temp#)
+          (let [~form temp#]
+            ~then)
+          ~else)))))

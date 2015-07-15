@@ -68,3 +68,11 @@
   (let [result (result/unauthorised)]
     (is (result/unauthorised? result))
     (is (result/failed? result))))
+
+(deftest if-let-test
+  (result/if-let [result (result/success)]
+    (is (result/succeeded? result))
+    (is false))
+  (result/if-let [result (result/failure)]
+    (is (result/failed? result))
+    (is true)))
