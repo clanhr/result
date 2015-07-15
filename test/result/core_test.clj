@@ -76,3 +76,22 @@
   (result/if-let [result (result/failure)]
     (is (result/failed? result))
     (is true)))
+
+(deftest on-success
+  (is (result/succeeded?
+    (result/on-success [result (result/success)]
+      (println "This should be displayed")
+      (is true)
+      (is (result/succeeded? result))
+      (result/success))))
+
+  (testing "last expr is returned"
+    (is (result/failed?
+      (result/on-success [result (result/success)]
+        (result/failure)))))
+
+  (is (result/failed?
+    (result/on-success [result (result/failure)]
+      (println "This should *NOT* be displayed")
+      (is false)
+      (result/success)))))
