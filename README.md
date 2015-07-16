@@ -2,15 +2,28 @@
 
 [![Clojars Project](http://clojars.org/clanhr/result/latest-version.svg)](http://clojars.org/clanhr/result)
 
-A Clojure library designed to ... well, that part is up to you.
+This component represents a way to represent function return values, with a success/failure semantic. Also has several useful macros for dealing with functions that use this component. Example of usage:
 
-## Usage
+```clojure
+(defn foo [] (result/success {:some-data "Hello"}))
+(defn notgood [] (result/failure "Not good"))
 
-FIXME
+(if (result/succeeded? foo)
+  (println "ok")
+  (println "nok"))
+```
 
-## License
+The following macros will only run the *body* if the results succeed. If any result fails, that result will be the value of the expression.
 
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+```clojure
+(result/if-let [r1 foo]
+  (println "ok")
+  (println "nok"))
+  
+(result/on-success [r1 foo]
+  (println "ok"))
+  
+(result/enforce-let [r1 notgood
+                     r2 foo])
+  (println "notgoof will be returned"))
+```
