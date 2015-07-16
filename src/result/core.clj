@@ -98,7 +98,7 @@
            ~@body)
          temp#))))
 
-(defmacro gather
+(defmacro enforce-let
   "Gathers all results, checking each one in order if failed. If one fails,
   it short circuits the flow, won't call the next ones and returns the
   failing result."
@@ -107,4 +107,4 @@
     `(do ~@body)
     (let [form (bindings 0) tst (bindings 1)]
       `(on-success [~form ~tst]
-        (gather ~(into [] (drop 2 bindings)) ~@body)))))
+        (enforce-let ~(into [] (drop 2 bindings)) ~@body)))))
