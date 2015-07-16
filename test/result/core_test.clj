@@ -70,8 +70,10 @@
     (is (result/failed? result))))
 
 (deftest if-let-test
-  (result/if-let [result (result/success)]
-    (is (result/succeeded? result))
+  (result/if-let [r (result/success)]
+    (do
+    (is (result/succeeded? r))
+    (println r))
     (is false))
   (result/if-let [result (result/failure)]
     (is (result/failed? result))
@@ -95,3 +97,23 @@
       (println "This should *NOT* be displayed")
       (is false)
       (result/success)))))
+
+(deftest gather
+  (testing "simple scenario"
+    (is (result/succeeded?
+      (result/gather [r1 (result/success)]
+        (result/success)))))
+
+  (testing "simple tree"
+    (is (result/succeeded?
+      (result/gather [r1 (result/success)
+                      r2 (result/success)
+                      r3 (result/success)]
+        r2))))
+
+  (testing "simple tree with failure"
+    (is (result/succeeded?
+      (result/gather [r1 (result/failure "First failure")
+                      r2 (result/success)
+                      r3 (result/success)]
+        r2)))))

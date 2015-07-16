@@ -14,7 +14,7 @@
   "Creates a failed result"
   ([] {:success false})
   ([data]
-    (if (map? data)
+   (if (map? data)
       (assoc data :success false)
       {:success false :data data})))
 
@@ -87,7 +87,6 @@
             ~then)
           ~else)))))
 
-
 (defmacro on-success
   "Given a result, if the result succeeds, runs and returns the body.
   It not, the failed result is returned."
@@ -98,3 +97,14 @@
          (let [~form temp#]
            ~@body)
          temp#))))
+
+(defmacro gather
+  "Gathers all results, checking each one in order if failed. If one fails,
+  it short circuits the flow, won't call the next ones and returns the
+  failing result."
+  [bindings & body]
+  (if (empty? bindings)
+    `(do ~@body)
+    (let [form (bindings 0) tst (bindings 1)]
+      `(on-success [~form ~tst]
+        (gather ~(into [] (drop 2 bindings)) ~@body)))))
