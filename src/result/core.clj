@@ -58,11 +58,13 @@
 (defn presence
   "Returns success or failure based on the param being nil or not. Also
   handles exceptions"
-  [obj]
-  (cond
-    (instance? Throwable obj) (exception obj)
-    obj (success obj)
-    :else (failure "Empty data")))
+  ([obj]
+   (presence obj nil))
+  ([obj failed-msg]
+   (cond
+     (instance? Throwable obj) (exception obj)
+     obj (success obj)
+     :else (failure (or failed-msg "Empty data")))))
 
 (defn unauthorised
   "A result the represents an unauthorised operation"
