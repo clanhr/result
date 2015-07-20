@@ -64,6 +64,12 @@
         result (result/timedout "postgres")]
     (is (result/failed? result))))
 
+(deftest result-presence
+  (let [specific-message "Specific message"
+        result (result/presence nil specific-message)]
+    (is (result/failed? result))
+    (is (= specific-message (:data result)))))
+
 (deftest result-unauthorised
   (let [result (result/unauthorised)]
     (is (result/unauthorised? result))
