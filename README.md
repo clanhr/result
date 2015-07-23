@@ -19,11 +19,15 @@ The following macros will only run the *body* if the results succeed. If any res
 (result/if-let [r1 foo]
   (println "ok")
   (println "nok"))
-  
+
 (result/on-success [r1 foo]
   (println "ok"))
-  
+
 (result/enforce-let [r1 notgood
                      r2 foo])
   (println "notgoof will be returned"))
+
+(result/enforce-let [r1 notgood
+                     r2 foo
+                     r2 (result/success)])
 ```

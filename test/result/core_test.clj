@@ -120,9 +120,23 @@
         (result/succeeded? r3)
         r3))))
 
-  (testing "simple tree with failure"
+  (testing "No body"
     (is (result/failed?
       (result/enforce-let [r1 (result/failure "First failure")
                            r2 (result/success)
                            r3 (result/success)]
-        (is false))))))
+        (is false)))))
+
+  (testing "no body failure"
+    (let [result (result/enforce-let [r1 (result/success)
+                                      r2 (result/success)
+                                      r3 (result/failure {:last true})])]
+      (is (result/failed? result))
+      (is (:last result))))
+
+  (testing "no body success"
+    (let [result (result/enforce-let [r1 (result/success)
+                                      r2 (result/success)
+                                      r3 (result/success {:last true})])]
+      (is (result/succeeded? result))
+      (is (:last result)))))
