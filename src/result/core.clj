@@ -109,4 +109,5 @@
     `(do ~@body)
     (let [form (bindings 0) tst (bindings 1)]
       `(on-success [~form ~tst]
-        (enforce-let ~(into [] (drop 2 bindings)) ~@body)))))
+        (or (enforce-let ~(into [] (drop 2 bindings)) ~@body)
+            ~form)))))
