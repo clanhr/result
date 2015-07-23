@@ -127,7 +127,7 @@
                            r3 (result/success)]
         (is false)))))
 
-  (testing "no body success"
+  (testing "no body failure"
     (let [result (result/enforce-let [r1 (result/success)
                                       r2 (result/success)
                                       r3 (result/failure {:last true})])]
