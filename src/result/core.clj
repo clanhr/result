@@ -1,6 +1,7 @@
 (ns result.core
   "Utilities for defining operation results"
-  (:refer-clojure :exclude [if-let]))
+  (:refer-clojure :exclude [if-let])
+  (:require [clojure.core.async :refer [go]]))
 
 (defn success
   "Creates a successful result"
@@ -111,3 +112,13 @@
       `(on-success [~form ~tst]
         (or (enforce-let ~(into [] (drop 2 bindings)) ~@body)
             ~form)))))
+
+(defmacro async-on-success
+  "returns a channel with on-success result"
+  [bindings & body]
+  `(go (on-success ~bindings ~@body)))
+
+(defmacro async-enforce-let
+  "returns a channel with enforce-let result"
+  [bindings & body]
+  `(go (enforce-let ~bindings ~@body)))
