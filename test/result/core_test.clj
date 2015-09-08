@@ -1,5 +1,6 @@
 (ns result.core-test
   (:require [clojure.test :refer :all]
+            [clojure.core.async :refer [<!!]]
             [result.core :as result]))
 
 (deftest success
@@ -140,3 +141,13 @@
                                       r3 (result/success {:last true})])]
       (is (result/succeeded? result))
       (is (:last result)))))
+
+(deftest async-enforce-let
+  (is (result/succeeded?
+    (<!! (result/async-enforce-let [r1 (result/success)]
+           (result/success))))))
+
+(deftest async-on-success
+  (is (result/succeeded?
+    (<!! (result/async-on-success [r1 (result/success)]
+           (result/success))))))
