@@ -76,6 +76,11 @@
     (is (result/unauthorised? result))
     (is (result/failed? result))))
 
+(deftest result-forbidden
+  (let [result (result/forbidden)]
+    (is (result/forbidden? result))
+    (is (result/failed? result))))
+
 (deftest if-let-test
   (result/if-let [r (result/success)]
     (do

@@ -78,6 +78,17 @@
   [result]
   (boolean (:unauthorised result)))
 
+(defn forbidden
+  "A result the represents an forbidden operation"
+  []
+  (-> (failure "Forbidden")
+      (assoc :forbidden true)))
+
+(defn forbidden?
+  "Checks if the given result is forbidden"
+  [result]
+  (boolean (:forbidden result)))
+
 (defmacro if-let
   "Mimics if-let but checks if a result succeeded"
   ([bindings then]
