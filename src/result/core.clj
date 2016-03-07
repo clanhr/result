@@ -89,6 +89,17 @@
   [result]
   (boolean (:forbidden result)))
 
+(defn payment-required
+  "A result the represents a payment required operation"
+  []
+  (-> (failure "PaymentRequired")
+      (assoc :payment-required true)))
+
+(defn payment-required?
+  "Checks if the given result is a payment required"
+  [result]
+  (boolean (:payment-required result)))
+
 (defmacro if-let
   "Mimics if-let but checks if a result succeeded"
   ([bindings then]
