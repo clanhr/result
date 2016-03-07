@@ -81,6 +81,11 @@
     (is (result/forbidden? result))
     (is (result/failed? result))))
 
+(deftest result-payment-required
+  (let [result (result/payment-required)]
+    (is (result/payment-required? result))
+    (is (result/failed? result))))
+
 (deftest if-let-test
   (result/if-let [r (result/success)]
     (do
