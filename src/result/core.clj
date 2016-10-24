@@ -69,9 +69,17 @@
   ([obj failed-msg]
    (cond
      (instance? Throwable obj) (exception obj)
-     obj (-> (success obj)
-             (assoc :has-value true))
+     obj (success obj)
      :else (failure (or failed-msg "Empty data")))))
+
+(defn as-object
+  "Same as presence and add a has-value flag"
+  ([obj]
+   (as-object obj nil))
+  ([obj failed-msg]
+   (let [result (presence obj failed-msg)]
+     (cond-> result
+       (succeeded? result) (assoc :has-value true)))))
 
 (defn unauthorised
   "A result the represents an unauthorised operation"
