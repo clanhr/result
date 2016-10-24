@@ -1,4 +1,4 @@
-(defproject clanhr/result "0.12.0"
+(defproject clanhr/result "0.13.0"
   :description "Generic result representation"
   :url "https://github.com/clanhr/result"
   :license {:name "Eclipse Public License"

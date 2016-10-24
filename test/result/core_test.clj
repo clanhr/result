@@ -71,6 +71,14 @@
     (is (result/failed? result))
     (is (= specific-message (:data result)))))
 
+(deftest result-has-value
+  (testing "has value"
+    (let [result (result/presence {:foo "foo"})]
+      (is (result/has-value? result))))
+  (testing "hasn't value"
+    (let [result (result/presence nil)]
+      (is (not (result/has-value? result))))))
+
 (deftest result-unauthorised
   (let [result (result/unauthorised)]
     (is (result/unauthorised? result))
