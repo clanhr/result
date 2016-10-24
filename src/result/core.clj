@@ -56,6 +56,11 @@
   (-> (failure "Exception")
       (assoc :exception ex)))
 
+(defn has-value?
+  "Returns success or failure based on the result having object or not"
+  [result]
+  (boolean (:has-value result)))
+
 (defn presence
   "Returns success or failure based on the param being nil or not. Also
   handles exceptions"
@@ -64,7 +69,8 @@
   ([obj failed-msg]
    (cond
      (instance? Throwable obj) (exception obj)
-     obj (success obj)
+     obj (-> (success obj)
+             (assoc :has-value true))
      :else (failure (or failed-msg "Empty data")))))
 
 (defn unauthorised
