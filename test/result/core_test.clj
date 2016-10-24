@@ -86,6 +86,12 @@
     (is (result/payment-required? result))
     (is (result/failed? result))))
 
+(deftest result-created
+  (let [ data {:dummy "dummy"}
+        result (result/created data)]
+    (is (result/created? result))
+    (is (result/succeeded? result))))
+
 (deftest if-let-test
   (result/if-let [r (result/success)]
     (do
