@@ -100,6 +100,17 @@
   [result]
   (boolean (:payment-required result)))
 
+(defn created
+  "A result the represents an created operation"
+  [data]
+  (-> (success data)
+      (assoc :created true)))
+
+(defn created?
+  "Checks if the given result is a created"
+  [result]
+  (boolean (:created result)))
+
 (defmacro if-let
   "Mimics if-let but checks if a result succeeded"
   ([bindings then]
