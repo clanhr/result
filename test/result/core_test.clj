@@ -73,10 +73,10 @@
 
 (deftest result-has-value
   (testing "has value"
-    (let [result (result/presence {:foo "foo"})]
+    (let [result (result/as-object {:foo "foo"})]
       (is (result/has-value? result))))
   (testing "hasn't value"
-    (let [result (result/presence nil)]
+    (let [result (result/as-object nil)]
       (is (not (result/has-value? result))))))
 
 (deftest result-unauthorised
