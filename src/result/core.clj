@@ -44,6 +44,15 @@
   [coll]
   (not (collection-succeeded? coll)))
 
+(defn collection-result
+  "Evaluates all the results on the collection and returns a new result based on that"
+  ([coll]
+   (collection-result coll nil))
+  ([coll error-message]
+   (if (collection-succeeded? coll)
+     (success coll)
+     (failure error-message))))
+
 (defn timedout
   "A result the represents a timeout"
   [info]
