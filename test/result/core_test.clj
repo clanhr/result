@@ -55,6 +55,19 @@
           results [(result/failure data) (result/success data)]]
       (is (not (result/collection-succeeded? results))))))
 
+(deftest collection-result
+  (testing "succeeded"
+    (-> [(result/success) (result/success)]
+        (result/collection-result )
+        (result/succeeded?)
+        (is)))
+
+  (testing "failed"
+    (-> [(result/failure) (result/failure)]
+        (result/collection-result )
+        (result/failed?)
+        (is))))
+
 (deftest collection-failed?
   (let [data {:dummy "dummy"}
         results [(result/failure data) (result/failure data)]]
