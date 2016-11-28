@@ -158,6 +158,13 @@
         (result/succeeded? r3)
         r3))))
 
+  (testing "inner exception"
+    (let [result (result/enforce-let [r1 (result/success)
+                                      r2 (throw (ex-info "Test" {}))
+                                      r3 (result/success)])]
+      (is (result/failed? result))
+      (is (result/exception? result))))
+
   (testing "No body"
     (is (result/failed?
       (result/enforce-let [r1 (result/failure "First failure")
