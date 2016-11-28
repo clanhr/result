@@ -65,6 +65,11 @@
   (-> (failure "Exception")
       (assoc :exception ex)))
 
+(defn exception?
+  "True if the result has an exception"
+  [result]
+  (:exception result))
+
 (defn has-value?
   "Returns success or failure based on the result having object or not"
   [result]
@@ -151,11 +156,14 @@
   It not, the failed result is returned."
   [bindings & body]
    (let [form (bindings 0) tst (bindings 1)]
-    `(let [temp# ~tst]
-       (if (succeeded? temp#)
-         (let [~form temp#]
-           ~@body)
-         temp#))))
+     `(try
+        (let [temp# ~tst]
+           (if (succeeded? temp#)
+             (let [~form temp#]
+               ~@body)
+             temp#))
+        (catch Exception e#
+          (exception e#)))))
 
 (defmacro enforce-let
   "Gathers all results, checking each one in order if failed. If one fails,
