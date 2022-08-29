@@ -1,4 +1,4 @@
-# ClanHR's Result Library [![Build Status](https://travis-ci.org/clanhr/result.svg)](https://travis-ci.org/clanhr/result)
+# ClanHR's Result Library [![Build Status](https://app.travis-ci.com/clanhr/result.svg?branch=master)](https://app.travis-ci.com/clanhr/result)
 
 [![Clojars Project](http://clojars.org/clanhr/result/latest-version.svg)](http://clojars.org/clanhr/result)
 
